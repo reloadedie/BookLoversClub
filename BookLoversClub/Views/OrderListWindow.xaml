@@ -1,0 +1,157 @@
+﻿<Window x:Class="BookLoversClub.Views.OrderListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookLoversClub.Views"
+        mc:Ignorable="d"
+        Title="Заказ" 
+        MinHeight="400" MinWidth="600"
+        Height="450" Width="800">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0"
+               Content="Заказ" 
+               FontSize="40"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"/>
+
+        <Grid Grid.Row="1" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Label Content="Статус: "
+                       FontSize="20"/>
+                <Label Content="{Binding Status}"
+                       FontSize="20"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1"
+                        HorizontalAlignment="Center">
+                <Label Content="Общая скидка: "
+                       FontSize="20"/>
+                <Label Content="{Binding SumSaleCost}"
+                       FontSize="20"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2"
+                        HorizontalAlignment="Center">
+                <Label Content="Общая стоимость: "
+                       FontSize="20"/>
+                <Label Content="{Binding SumOrderCost}"
+                       FontSize="20"/>
+            </StackPanel>
+        </Grid>
+
+        <ListBox Grid.Row="2"
+                 ItemsSource="{Binding BookOrdersList}"
+                 SelectedItem="{Binding SelectedBookInOrderList}"
+                 BorderThickness="0,0,0,0"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="AliceBlue"
+                            CornerRadius="15"
+                            MinHeight="80" MinWidth="400">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0"
+                                   Source="{Binding IdBookNavigation.PhotoImage}"
+                                   Width="70" Height="70"
+                                   Margin="10,5,10,5" />
+
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" MinHeight="50"/>
+                                    <RowDefinition MinHeight="20"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Content="{Binding IdBookNavigation.Name}"
+                                               FontSize="18"
+                                               VerticalAlignment="Center"
+                                               FontWeight="Medium"/>
+
+                                        <Label Grid.Row="1"
+                                               Content="{Binding IdBookNavigation.IdProductionNavigation.Name}"
+                                               FontSize="16" FontWeight="Light"
+                                               VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                    <StackPanel Grid.Column="1"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Top">
+                                        <Label Content="Цена"
+                                               FontSize="14"/>
+                                        <TextBlock Text="{Binding IdBookNavigation.Cost}"
+                                                   TextWrapping="Wrap"
+                                                   FontSize="14"
+                                                   HorizontalAlignment="Center"
+                                                   Foreground="DarkBlue"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Top">
+                                        <Label Content="Скидка"
+                                               FontSize="14"/>
+                                        <TextBlock Text="{Binding IdBookNavigation.SaleCost}"
+                                                   TextWrapping="Wrap"
+                                                   FontSize="14"
+                                                   HorizontalAlignment="Center"
+                                                   Foreground="DarkBlue"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Border Grid.Row="1"
+                                        BorderThickness="10">
+                                    <TextBlock Text="{Binding IdBookNavigation.Description}"
+                                               FontSize="14" FontWeight="Light"
+                                               TextWrapping="Wrap"/>
+                                </Border>
+                            </Grid>
+
+                            <Button Grid.Column="2"
+                                    Command="{Binding DeleteBookInListOrder}"
+                                    Content="Удалить"
+                                    FontSize="16"
+                                    Height="40"
+                                    Width="100"
+                                    Margin="5,0,5,0">
+                            </Button>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>

@@ -1,0 +1,129 @@
+﻿<Window x:Class="BookLoversClub.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookLoversClub"
+        mc:Ignorable="d"
+        Title="Книжный клуб" 
+        MinHeight="400" MinWidth="600"
+        Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Товары"
+               HorizontalAlignment="Center"
+               FontSize="50" FontWeight="Bold"
+               />
+
+        <Button Content="Просмотреть заказ"
+                Command="{Binding ShowOrder}"
+                Visibility="{Binding BoolShowOrder}"
+                Width="180" 
+                Height="50"
+                FontSize="18"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="0,0,10,0"/>
+
+        <ListBox Grid.Row="1"
+                 ItemsSource="{Binding Books}"
+                 SelectedItem="{Binding SelectedBook}"
+                 BorderThickness="0,0,0,0"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.ContextMenu>
+                <ContextMenu FontSize="20">
+                    <MenuItem Header="Добавить к заказу" 
+                              Command="{Binding AddBookToOrder}"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="AliceBlue"
+                            CornerRadius="15"
+                            MinHeight="80">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0"
+                                   Source="{Binding PhotoImage}"
+                                   Width="70" Height="70"
+                                   Margin="10,5,10,5" />
+
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" MinHeight="50"/>
+                                    <RowDefinition MinHeight="20"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Content="{Binding Name}"
+                                               FontSize="18"
+                                               VerticalAlignment="Center"
+                                               FontWeight="Medium"/>
+                                        
+                                        <Label Grid.Row="1"
+                                               Content="{Binding IdProductionNavigation.Name}"
+                                               FontSize="16"
+                                               VerticalAlignment="Center"
+                                               FontWeight="Light"/>
+                                    </Grid>
+
+                                    <StackPanel Grid.Column="1"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Top">
+                                        <Label Content="Цена"
+                                               FontSize="14"/>
+                                        <TextBlock Text="{Binding Cost}"
+                                                   TextWrapping="Wrap"
+                                                   FontSize="14"
+                                                   HorizontalAlignment="Center"
+                                                   Foreground="DarkBlue"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Top">
+                                        <Label Content="Скидка"
+                                               FontSize="14"/>
+                                        <TextBlock Text="{Binding SaleCost}"
+                                                   TextWrapping="Wrap"
+                                                   FontSize="14"
+                                                   HorizontalAlignment="Center"
+                                                   Foreground="DarkBlue"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <Border Grid.Row="1"
+                                        BorderThickness="10">
+                                    <TextBlock Text="{Binding Description}"
+                                               FontSize="14" FontWeight="Light"
+                                               TextWrapping="Wrap"/>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>
